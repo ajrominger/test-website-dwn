@@ -100,6 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/font-awesome-6.5.2/js/script.js"></script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -167,10 +168,151 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>About this site</p>
+<p>Download the <code>index.qmd</code> file via github link:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>baseURL <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/ajrominger/test-website-dwn/refs/heads/main/"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>downloadthis<span class="sc">::</span><span class="fu">download_link</span>(<span class="at">link =</span> <span class="fu">paste0</span>(baseURL, <span class="st">"index.qmd"</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">button_label =</span> <span class="st">"Download assignment"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">button_type =</span> <span class="st">"danger"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">has_icon =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">icon =</span> <span class="st">"fa fa-save"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">self_contained =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<a href="https://raw.githubusercontent.com/ajrominger/test-website-dwn/refs/heads/main/index.qmd">
+<button class="btn btn-danger"><i class="fa fa-save"></i> Download assignment</button>
+</a>
+</div>
+</div>
+<p>Download file</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>downloadthis<span class="sc">::</span><span class="fu">download_file</span>(<span class="at">path =</span> <span class="st">"index.qmd"</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">output_name =</span> <span class="st">"assignment"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">button_label =</span> <span class="st">"Download assingment"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">button_type =</span> <span class="st">"warning"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">has_icon =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">icon =</span> <span class="st">"fa fa-save"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">self_contained =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<button class="btn btn-warning" onclick="
+    async function downloadFile(event) {
+      event.preventDefault();
+      try {
+        const response = await fetch('data:application/octet-stream;base64,LS0tCnRpdGxlOiAiZm9vIgotLS0KClRoaXMgaXMgYSBRdWFydG8gd2Vic2l0ZS4KClRvIGxlYXJuIG1vcmUgYWJvdXQgUXVhcnRvIHdlYnNpdGVzIHZpc2l0IDxodHRwczovL3F1YXJ0by5vcmcvZG9jcy93ZWJzaXRlcz4uCgpgYGB7cn0KMSArIDEKYGBgCg==');
+        if (!response.ok) throw new Error('Network response failed');
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = 'assignment.qmd';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.dispatchEvent(new MouseEvent('click'));
+        document.body.removeChild(a);
+        setTimeout(() => {
+          window.URL.revokeObjectURL(blobUrl);
+        }, 100);
+        return false;
+      } catch (error) {
+        console.error('Download failed:', error);
+        alert('Download failed. Please try again.');
+      }
+    }
+    downloadFile(event);
+  "><i class="fa fa-save"></i> Download assingment</button>
+</div>
+</div>
+<p>Download via temp file</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"index.qmd"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"via temp </span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">tempdir</span>()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(x, <span class="fu">file.path</span>(d, <span class="st">"tmp.qmd"</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>downloadthis<span class="sc">::</span><span class="fu">download_file</span>(<span class="at">path =</span> <span class="fu">file.path</span>(d, <span class="st">"tmp.qmd"</span>),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">output_name =</span> <span class="st">"assignment"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">button_label =</span> <span class="st">"Download assingment"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">button_type =</span> <span class="st">"primary"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">has_icon =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">icon =</span> <span class="st">"fa fa-save"</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                            <span class="at">self_contained =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<button class="btn btn-primary" onclick="
+    async function downloadFile(event) {
+      event.preventDefault();
+      try {
+        const response = await fetch('data:application/octet-stream;base64,LS0tCnRpdGxlOiAiZm9vIgotLS0KClRoaXMgaXMgYSBRdWFydG8gd2Vic2l0ZS4KClRvIGxlYXJuIG1vcmUgYWJvdXQgUXVhcnRvIHdlYnNpdGVzIHZpc2l0IDxodHRwczovL3F1YXJ0by5vcmcvZG9jcy93ZWJzaXRlcz4uCgpgYGB7cn0KMSArIDEKYGBgCgoKdmlhIHRlbXAgCgo=');
+        if (!response.ok) throw new Error('Network response failed');
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = 'assignment.qmd';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.dispatchEvent(new MouseEvent('click'));
+        document.body.removeChild(a);
+        setTimeout(() => {
+          window.URL.revokeObjectURL(blobUrl);
+        }, 100);
+        return false;
+      } catch (error) {
+        console.error('Download failed:', error);
+        alert('Download failed. Please try again.');
+      }
+    }
+    downloadFile(event);
+  "><i class="fa fa-save"></i> Download assingment</button>
+</div>
+</div>
+<p>Testing <code>here::here()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>here<span class="sc">::</span><span class="fu">here</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code>[1] "/Users/ajr/Library/CloudStorage/GoogleDrive-rominger@hawaii.edu/My Drive/projects/test-website-dwn"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> knitr<span class="sc">::</span><span class="fu">current_input</span>() <span class="sc">|&gt;</span> <span class="fu">readLines</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"via knitr::current_input </span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">tempdir</span>()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(x, <span class="fu">file.path</span>(d, <span class="st">"tmp-input.qmd"</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>downloadthis<span class="sc">::</span><span class="fu">download_file</span>(<span class="at">path =</span> <span class="fu">file.path</span>(d, <span class="st">"tmp-input.qmd"</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">output_name =</span> <span class="st">"self"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">button_label =</span> <span class="st">"Download self"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">button_type =</span> <span class="st">"primary"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">has_icon =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">icon =</span> <span class="st">"fa fa-save"</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                            <span class="at">self_contained =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<button class="btn btn-primary" onclick="
+    async function downloadFile(event) {
+      event.preventDefault();
+      try {
+        const response = await fetch('data:application/octet-stream;base64,LS0tCnRpdGxlOiAiQWJvdXQiCi0tLQoKCgoKQWJvdXQgdGhpcyBzaXRlCgpEb3dubG9hZCB0aGUgYGluZGV4LnFtZGAgZmlsZSB2aWEgZ2l0aHViIGxpbms6IAoKCgoKYGBge3J9CmJhc2VVUkwgPC0gImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9hanJvbWluZ2VyL3Rlc3Qtd2Vic2l0ZS1kd24vcmVmcy9oZWFkcy9tYWluLyIKZG93bmxvYWR0aGlzOjpkb3dubG9hZF9saW5rKGxpbmsgPSBwYXN0ZTAoYmFzZVVSTCwgImluZGV4LnFtZCIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgYnV0dG9uX2xhYmVsID0gIkRvd25sb2FkIGFzc2lnbm1lbnQiLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgYnV0dG9uX3R5cGUgPSAiZGFuZ2VyIiwKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGhhc19pY29uID0gVFJVRSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGljb24gPSAiZmEgZmEtc2F2ZSIsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZWxmX2NvbnRhaW5lZCA9IEZBTFNFKQpgYGAKCgoKCgpEb3dubG9hZCBmaWxlCgoKCgpgYGB7cn0KZG93bmxvYWR0aGlzOjpkb3dubG9hZF9maWxlKHBhdGggPSAiaW5kZXgucW1kIiwKICAgICAgICAgICAgICAgICAgICAgICAgICAgIG91dHB1dF9uYW1lID0gImFzc2lnbm1lbnQiLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgYnV0dG9uX2xhYmVsID0gIkRvd25sb2FkIGFzc2luZ21lbnQiLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgYnV0dG9uX3R5cGUgPSAid2FybmluZyIsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBoYXNfaWNvbiA9IFRSVUUsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBpY29uID0gImZhIGZhLXNhdmUiLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VsZl9jb250YWluZWQgPSBGQUxTRSkKYGBgCgoKCgoKRG93bmxvYWQgdmlhIHRlbXAgZmlsZQoKCgoKYGBge3J9CnggPC0gcmVhZExpbmVzKCJpbmRleC5xbWQiKSB8PiAKICAgIGMoIlxuIiwgInZpYSB0ZW1wIFxuIikKZCA8LSB0ZW1wZGlyKCkKCndyaXRlTGluZXMoeCwgZmlsZS5wYXRoKGQsICJ0bXAucW1kIikpCgpkb3dubG9hZHRoaXM6OmRvd25sb2FkX2ZpbGUocGF0aCA9IGZpbGUucGF0aChkLCAidG1wLnFtZCIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgb3V0cHV0X25hbWUgPSAiYXNzaWdubWVudCIsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBidXR0b25fbGFiZWwgPSAiRG93bmxvYWQgYXNzaW5nbWVudCIsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBidXR0b25fdHlwZSA9ICJwcmltYXJ5IiwKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGhhc19pY29uID0gVFJVRSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGljb24gPSAiZmEgZmEtc2F2ZSIsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZWxmX2NvbnRhaW5lZCA9IEZBTFNFKQpgYGAKCgoKCgpUZXN0aW5nIGBoZXJlOjpoZXJlKClgCgoKCgpgYGB7cn0KaGVyZTo6aGVyZSgpCmBgYAoKYGBge3J9CnggPC0ga25pdHI6OmN1cnJlbnRfaW5wdXQoKSB8PiByZWFkTGluZXMoKSB8PiAKICAgIGMoIlxuIiwgInZpYSBrbml0cjo6Y3VycmVudF9pbnB1dCBcbiIpCmQgPC0gdGVtcGRpcigpCgp3cml0ZUxpbmVzKHgsIGZpbGUucGF0aChkLCAidG1wLWlucHV0LnFtZCIpKQoKZG93bmxvYWR0aGlzOjpkb3dubG9hZF9maWxlKHBhdGggPSBmaWxlLnBhdGgoZCwgInRtcC1pbnB1dC5xbWQiKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgIG91dHB1dF9uYW1lID0gInNlbGYiLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgYnV0dG9uX2xhYmVsID0gIkRvd25sb2FkIHNlbGYiLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgYnV0dG9uX3R5cGUgPSAicHJpbWFyeSIsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBoYXNfaWNvbiA9IFRSVUUsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBpY29uID0gImZhIGZhLXNhdmUiLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VsZl9jb250YWluZWQgPSBGQUxTRSkKYGBgCgoKCnZpYSBrbml0cjo6Y3VycmVudF9pbnB1dCAKCg==');
+        if (!response.ok) throw new Error('Network response failed');
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = 'self.qmd';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.dispatchEvent(new MouseEvent('click'));
+        document.body.removeChild(a);
+        setTimeout(() => {
+          window.URL.revokeObjectURL(blobUrl);
+        }, 100);
+        return false;
+      } catch (error) {
+        console.error('Download failed:', error);
+        alert('Download failed. Please try again.');
+      }
+    }
+    downloadFile(event);
+  "><i class="fa fa-save"></i> Download self</button>
 </div>
 </div>
 

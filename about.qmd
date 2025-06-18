@@ -4,6 +4,71 @@ title: "About"
 
 About this site
 
+Download the `index.qmd` file via github link: 
+
 ```{r}
-1 + 1
+baseURL <- "https://raw.githubusercontent.com/ajrominger/test-website-dwn/refs/heads/main/"
+downloadthis::download_link(link = paste0(baseURL, "index.qmd"),
+                            button_label = "Download assignment",
+                            button_type = "danger",
+                            has_icon = TRUE,
+                            icon = "fa fa-save",
+                            self_contained = FALSE)
+```
+
+
+Download file
+
+```{r}
+downloadthis::download_file(path = "index.qmd",
+                            output_name = "assignment",
+                            button_label = "Download assingment",
+                            button_type = "warning",
+                            has_icon = TRUE,
+                            icon = "fa fa-save",
+                            self_contained = FALSE)
+```
+
+
+Download via temp file
+
+```{r}
+x <- readLines("index.qmd") |> 
+    c("\n", "via temp \n")
+d <- tempdir()
+
+writeLines(x, file.path(d, "tmp.qmd"))
+
+downloadthis::download_file(path = file.path(d, "tmp.qmd"),
+                            output_name = "assignment",
+                            button_label = "Download assingment",
+                            button_type = "primary",
+                            has_icon = TRUE,
+                            icon = "fa fa-save",
+                            self_contained = FALSE)
+```
+
+
+Testing `here::here()`
+
+```{r}
+here::here()
+```
+
+
+
+```{r}
+x <- knitr::current_input() |> readLines() |> 
+    c("\n", "via knitr::current_input \n")
+d <- tempdir()
+
+writeLines(x, file.path(d, "tmp-input.qmd"))
+
+downloadthis::download_file(path = file.path(d, "tmp-input.qmd"),
+                            output_name = "self",
+                            button_label = "Download self",
+                            button_type = "primary",
+                            has_icon = TRUE,
+                            icon = "fa fa-save",
+                            self_contained = FALSE)
 ```
