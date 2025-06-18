@@ -4,7 +4,7 @@ title: "About"
 
 About this site
 
-Download the `index.qmd` file via github link: 
+Download the `index.qmd` file via github link:
 
 ```{r}
 baseURL <- "https://raw.githubusercontent.com/ajrominger/test-website-dwn/refs/heads/main/"
@@ -15,7 +15,6 @@ downloadthis::download_link(link = paste0(baseURL, "index.qmd"),
                             icon = "fa fa-save",
                             self_contained = FALSE)
 ```
-
 
 Download file
 
@@ -28,7 +27,6 @@ downloadthis::download_file(path = "index.qmd",
                             icon = "fa fa-save",
                             self_contained = FALSE)
 ```
-
 
 Download via temp file
 
@@ -48,14 +46,11 @@ downloadthis::download_file(path = file.path(d, "tmp.qmd"),
                             self_contained = FALSE)
 ```
 
-
 Testing `here::here()`
 
 ```{r}
 here::here()
 ```
-
-
 
 ```{r}
 x <- knitr::current_input() |> readLines() |> 
