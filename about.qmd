@@ -69,6 +69,6 @@ downloadthis::download_file(path = file.path(d, "tmp-input.qmd"),
                             button_label = "Download self",
                             button_type = "primary",
                             has_icon = TRUE,
-                            icon = "fa fa-save",
+                            icon = "fa fa-download",
                             self_contained = FALSE)
 ```
